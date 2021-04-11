@@ -17,7 +17,7 @@ object UserHolder {
     }
 
     fun registerUserByPhone(fullName: String, rawPhone: String): User {
-        if ("\\+\\d{11}".toRegex().matches(rawPhone.replace("[^+\\d]".toRegex(), ""))) {
+        if ("^\\+\\d{11}$".toRegex().matches(rawPhone.replace("[^+\\d]".toRegex(), ""))) {
             if (!map.containsKey(rawPhone.replace("[^+\\d]".toRegex(), ""))) {
                 return User.makeUser(fullName = fullName, phone = rawPhone).also { user -> map[user.login] = user }
             } else throw IllegalArgumentException("A user with this phone already exists")
